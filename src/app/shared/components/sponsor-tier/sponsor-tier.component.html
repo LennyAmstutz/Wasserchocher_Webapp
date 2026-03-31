@@ -1,0 +1,27 @@
+<div class="s-tier-block">
+
+  <div class="s-tier-head">
+    <span class="s-tier-label" [class]="'s-tier-label--' + tier()">{{ tierLabel }}</span>
+    <div class="s-tier-rule"></div>
+  </div>
+
+  <div class="s-tier-logos" [class]="'s-tier-logos--' + tier()">
+    @for (sponsor of sponsors(); track sponsor.id) {
+      <a
+        class="logo-box"
+        [class.logo-box--lg]="tier() === 'gold'"
+        [href]="sponsor.website_url"
+        target="_blank"
+        rel="noopener"
+        [title]="sponsor.name"
+      >
+        @if (sponsor.logo_path) {
+          <img [src]="sponsor.logo_path" [alt]="sponsor.name" />
+        } @else {
+          <span class="logo-placeholder">{{ sponsor.name }}</span>
+        }
+      </a>
+    }
+  </div>
+
+</div>

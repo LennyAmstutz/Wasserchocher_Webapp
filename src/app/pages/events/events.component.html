@@ -1,0 +1,35 @@
+<app-page-hero
+  tag="Programm 2025"
+  title="Events"
+  intro="Alle kommenden Veranstaltungen. Eintritt meist frei oder zu kleinen Preisen."
+/>
+
+<section class="events-list-sect">
+  <div class="container">
+
+    @if (loading()) {
+      <div class="state-msg">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+    }
+
+    @if (error()) {
+      <p class="state-msg state-msg--error">{{ error() }}</p>
+    }
+
+    @if (!loading() && !error()) {
+      @if (events().length === 0) {
+        <p class="state-msg">Aktuell sind keine Events geplant.</p>
+      } @else {
+        <div class="events-grid">
+          @for (event of events(); track event.id) {
+            <app-event-card [event]="event" />
+          }
+        </div>
+      }
+    }
+
+  </div>
+</section>

@@ -1,0 +1,99 @@
+.event-card {
+  background: #FAFAFA;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #D8D8D6;
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(26, 26, 26, 0.1);
+}
+
+.event-card-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #EBEBEA;
+}
+.event-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.event-card:hover .event-card-img img {
+  transform: scale(1.03);
+}
+
+.event-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #EBEBEA;
+  border-bottom: 1px solid #D8D8D6;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 24px,
+    rgba(0,0,0,.03) 24px, rgba(0,0,0,.03) 25px
+  );
+}
+.event-card-placeholder span {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8C8C8C;
+}
+
+.event-card-body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.event-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-date  { font-size: 12px; font-weight: 600; color: #2E2E2E; letter-spacing: 0.03em; }
+.meta-sep   { color: #D8D8D6; font-size: 12px; }
+.meta-place { font-size: 12px; color: #8C8C8C; }
+
+.event-card-title {
+  font-family: 'Archivo Black', Arial Black, sans-serif;
+  font-size: clamp(18px, 2vw, 22px);
+  letter-spacing: -0.02em;
+  color: #1A1A1A;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+.event-card-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: #5A5A5A;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.btn-detail {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8C8C8C;
+  transition: color 0.22s;
+}
+.event-card:hover .btn-detail { color: #1A1A1A; }

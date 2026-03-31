@@ -1,0 +1,27 @@
+<div class="featured-card" [routerLink]="['/events', event().slug]">
+
+  <!-- Image -->
+  <div class="featured-img">
+    @if (event().hero_image_path) {
+      <img [src]="event().hero_image_path" [alt]="event().title" />
+    } @else {
+      <div class="featured-placeholder"></div>
+    }
+    <div class="featured-img-label">
+      <span class="event-tag">{{ event().short_description }}</span>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="featured-info">
+    <div class="featured-meta">
+      <span class="meta-date">{{ event().event_date | date:'EE, d. MMM yyyy':'':'de' }}</span>
+      <span class="meta-sep">—</span>
+      <span class="meta-place">{{ event().location }}</span>
+    </div>
+    <h2 class="featured-title">{{ event().title }}</h2>
+    <p class="featured-desc">{{ event().description }}</p>
+    <span class="btn btn-dark">Details →</span>
+  </div>
+
+</div>

@@ -1,0 +1,43 @@
+<app-page-hero
+  tag="Partner"
+  title="Sponsoren"
+  intro="Dank unseren Partnerinnen und Partnern bleibt Kultur zugänglich. Danke für eure Unterstützung."
+/>
+
+<section class="sponsoren-sect">
+  <div class="container">
+
+    @if (loading()) {
+      <div class="state-msg">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+    }
+
+    @if (error()) {
+      <p class="state-msg state-msg--error">{{ error() }}</p>
+    }
+
+    @if (!loading() && !error()) {
+      @for (tier of tierOrder; track tier) {
+        @if (sponsorsByTier()[tier].length > 0) {
+          <app-sponsor-tier
+            [tier]="tier"
+            [sponsors]="sponsorsByTier()[tier]"
+          />
+        }
+      }
+    }
+
+    <!-- Sponsor CTA -->
+    <div class="sponsor-cta-row">
+      <div class="sponsor-cta-text">
+        <h2 class="sponsor-cta-h2">Sponsor werden?</h2>
+        <p>Unterstütze Luzerner Kultur und werde sichtbar bei einem engagierten, kulturnahen Publikum. Wir bieten massgeschneiderte Pakete.</p>
+      </div>
+      <a routerLink="/kontakt" class="btn btn-dark">Anfrage senden →</a>
+    </div>
+
+  </div>
+</section>

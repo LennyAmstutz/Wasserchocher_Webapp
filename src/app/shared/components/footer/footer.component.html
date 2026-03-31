@@ -1,0 +1,18 @@
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-left">
+      <span class="footer-logo">Wasserchocher</span>
+      <span class="footer-sub">Kulturverein · Luzern · seit 2018</span>
+    </div>
+
+    <nav class="footer-nav">
+      @for (link of navLinks; track link.path) {
+        <a [routerLink]="link.path" class="footer-nav-link">{{ link.label }}</a>
+      }
+    </nav>
+
+    <span class="footer-copy">© {{ year }} Verein Wasserchocher</span>
+
+  </div>
+</footer>

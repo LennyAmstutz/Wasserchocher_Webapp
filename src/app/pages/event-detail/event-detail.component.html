@@ -1,0 +1,141 @@
+@if (loading()) {
+  <div class="state-center">
+    <span class="loading-dot"></span>
+    <span class="loading-dot"></span>
+    <span class="loading-dot"></span>
+  </div>
+}
+
+@if (error()) {
+  <div class="state-center">
+    <p class="state-error">{{ error() }}</p>
+    <a routerLink="/events" class="btn btn-outline">← Zurück zu Events</a>
+  </div>
+}
+
+@if (!loading() && event(); as ev) {
+
+  <!-- Back -->
+  <div class="detail-back">
+    <div class="container">
+      <a routerLink="/events" class="back-btn">← Events</a>
+    </div>
+  </div>
+
+  <!-- Hero Image -->
+  <section class="detail-hero">
+    <div class="container">
+      @if (ev.hero_image_path) {
+        <img class="detail-hero-img" [src]="ev.hero_image_path" [alt]="ev.title" />
+      } @else {
+        <div class="detail-hero-placeholder"></div>
+      }
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="detail-content">
+    <div class="container">
+      <div class="detail-layout">
+
+        <!-- Main -->
+        <div class="detail-main">
+          <div class="detail-meta">
+            <span class="meta-date">{{ ev.event_date | date:'EE, d. MMMM yyyy':'':'de' }}</span>
+            <span class="meta-sep">—</span>
+            <span class="meta-place">{{ ev.location }}</span>
+          </div>
+          <h1 class="detail-h1">{{ ev.title }}</h1>
+          <div class="detail-text" [innerHTML]="ev.description"></div>
+
+          <ul class="detail-facts">
+            <li class="detail-fact">
+              <span class="fact-key">Datum</span>
+              <span class="fact-val">{{ ev.event_date | date:'EEEE, d. MMMM yyyy':'':'de' }}</span>
+            </li>
+            @if (ev.event_time) {
+              <li class="detail-fact">
+                <span class="fact-key">Beginn</span>
+                <span class="fact-val">{{ ev.event_time }} Uhr</span>
+              </li>
+            }
+            <li class="detail-fact">
+              <span class="fact-key">Ort</span>
+              <span class="fact-val">{{ ev.location }}</span>
+            </li>
+            @if (ev.address) {
+              <li class="detail-fact">
+                <span class="fact-key">Adresse</span>
+                <span class="fact-val">{{ ev.address }}</span>
+              </li>
+            }
+          </ul>
+
+          <div class="detail-actions">
+            <a routerLink="/events" class="btn btn-outline">← Zurück</a>
+          </div>
+        </div>
+
+        <!-- Aside -->
+        <aside class="detail-aside">
+          <div class="aside-card">
+            <p class="aside-k">Datum</p>
+            <p class="aside-v">{{ ev.event_date | date:'EE, d. MMM yyyy':'':'de' }}</p>
+          </div>
+          <div class="aside-card">
+            <p class="aside-k">Ort</p>
+            <p class="aside-v">{{ ev.location }}<br /><small>{{ ev.address }}</small></p>
+          </div>
+          @if (ev.event_time) {
+            <div class="aside-card">
+              <p class="aside-k">Beginn</p>
+              <p class="aside-v">{{ ev.event_time }} Uhr</p>
+            </div>
+          }
+          <div class="aside-card">
+            <p class="aside-k">Veranstalter</p>
+            <p class="aside-v">Verein Wasserchocher</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Images Gallery -->
+  @if (ev.images && ev.images.length > 0) {
+    <section class="detail-gallery">
+      <div class="container">
+        <h2 class="gallery-title">Impressionen</h2>
+        <div class="gallery-grid">
+          @for (img of ev.images; track img.id) {
+            <div class="gallery-item">
+              <img [src]="img.image_path" [alt]="img.alt_text || ev.title" />
+              @if (img.caption) {
+                <p class="gallery-caption">{{ img.caption }}</p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Sponsors -->
+  @if (hasSponsorsByTier) {
+    <section class="detail-sponsors">
+      <div class="container">
+        <h2 class="sponsors-title">Partner dieses Events</h2>
+        @for (tier of tierOrder; track tier) {
+          @if (sponsorsByTier()[tier].length > 0) {
+            <app-sponsor-tier
+              [tier]="tier"
+              [sponsors]="sponsorsByTier()[tier]"
+            />
+          }
+        }
+      </div>
+    </section>
+  }
+
+}

@@ -1,0 +1,156 @@
+<app-page-hero
+  tag="Schreib uns"
+  title="Kontakt"
+  intro="Wir hören gerne von dir — ob Ideen, Fragen oder Kooperationsanfragen."
+/>
+
+<section class="kontakt-sect">
+  <div class="container">
+    <div class="kontakt-grid">
+
+      <!-- ── Left: Info ─────────────────────── -->
+      <div class="kontakt-items">
+
+        <div class="kontakt-row">
+          <p class="kontakt-key">E-Mail</p>
+          <div>
+            <a href="mailto:hallo@wasserchocher.ch" class="kontakt-val">hallo&#64;wasserchocher.ch</a>
+            <p class="kontakt-note">Antwort innerhalb von 2–3 Werktagen.</p>
+          </div>
+        </div>
+
+        <div class="kontakt-row">
+          <p class="kontakt-key">Instagram</p>
+          <div>
+            <a href="https://instagram.com/wasserchocher" class="kontakt-val" target="_blank" rel="noopener">
+              &#64;wasserchocher
+            </a>
+            <p class="kontakt-note">Updates, Stories und Behind-the-Scenes.</p>
+          </div>
+        </div>
+
+        <div class="kontakt-row">
+          <p class="kontakt-key">Sponsoring</p>
+          <div>
+            <a href="mailto:sponsoring@wasserchocher.ch" class="kontakt-val">sponsoring&#64;wasserchocher.ch</a>
+            <p class="kontakt-note">Für Partnerschaftsanfragen und Kooperationen.</p>
+          </div>
+        </div>
+
+        <div class="kontakt-row">
+          <p class="kontakt-key">Standort</p>
+          <div>
+            <p class="kontakt-val-plain">Verein Wasserchocher<br />6000 Luzern, Schweiz</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Right: Form ───────────────────── -->
+      <div class="kontakt-form-wrap">
+
+        @if (submitted()) {
+          <div class="form-success">
+            <span class="form-success-icon">✓</span>
+            <h3 class="form-success-title">Nachricht gesendet</h3>
+            <p>Wir melden uns so bald wie möglich bei dir.</p>
+          </div>
+        } @else {
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="kontakt-form">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Name *</label>
+                <input
+                  id="name"
+                  type="text"
+                  class="form-input"
+                  [class.form-input--error]="isInvalid('name')"
+                  formControlName="name"
+                  placeholder="Dein Name"
+                  autocomplete="name"
+                />
+                @if (isInvalid('name')) {
+                  <span class="form-error">Bitte gib deinen Namen ein.</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">E-Mail *</label>
+                <input
+                  id="email"
+                  type="email"
+                  class="form-input"
+                  [class.form-input--error]="isInvalid('email')"
+                  formControlName="email"
+                  placeholder="deine@email.ch"
+                  autocomplete="email"
+                />
+                @if (isInvalid('email')) {
+                  <span class="form-error">Bitte gib eine gültige E-Mail-Adresse ein.</span>
+                }
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="category">Kategorie</label>
+                <select id="category" class="form-input form-select" formControlName="category">
+                  @for (cat of categories; track cat.value) {
+                    <option [value]="cat.value">{{ cat.label }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="subject">Betreff *</label>
+                <input
+                  id="subject"
+                  type="text"
+                  class="form-input"
+                  [class.form-input--error]="isInvalid('subject')"
+                  formControlName="subject"
+                  placeholder="Worum geht es?"
+                />
+                @if (isInvalid('subject')) {
+                  <span class="form-error">Bitte gib einen Betreff ein.</span>
+                }
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">Nachricht *</label>
+              <textarea
+                id="message"
+                class="form-input form-textarea"
+                [class.form-input--error]="isInvalid('message')"
+                formControlName="message"
+                placeholder="Deine Nachricht (min. 20 Zeichen)"
+                rows="6"
+              ></textarea>
+              @if (isInvalid('message')) {
+                <span class="form-error">Bitte schreib mindestens 20 Zeichen.</span>
+              }
+            </div>
+
+            @if (submitError()) {
+              <p class="form-submit-error">{{ submitError() }}</p>
+            }
+
+            <button
+              type="submit"
+              class="btn btn-dark btn-submit"
+              [disabled]="submitting()"
+            >
+              {{ submitting() ? 'Wird gesendet…' : 'Nachricht senden →' }}
+            </button>
+
+          </form>
+
+        }
+      </div>
+
+    </div>
+  </div>
+</section>

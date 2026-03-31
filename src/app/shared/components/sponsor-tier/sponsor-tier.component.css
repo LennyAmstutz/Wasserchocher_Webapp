@@ -1,0 +1,81 @@
+.s-tier-block { margin-bottom: 52px; }
+
+.s-tier-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.s-tier-label {
+  font-family: 'Archivo Black', Arial Black, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.s-tier-label--gold   { background: rgba(184,153,42,.1); color: #B8992A; }
+.s-tier-label--silver { background: rgba(140,140,140,.1); color: #8C8C8C; }
+.s-tier-label--bronze { background: rgba(160,96,64,.1);   color: #A06040; }
+
+.s-tier-rule {
+  flex: 1;
+  height: 1px;
+  background: #D8D8D6;
+}
+
+.s-tier-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo-box {
+  flex: 0 1 calc(25% - 9px);
+  height: 80px;
+  background: #FAFAFA;
+  border: 1px solid #D8D8D6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: border-color 0.22s, box-shadow 0.22s;
+  overflow: hidden;
+  padding: 12px;
+}
+.logo-box:hover {
+  border-color: #5A5A5A;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+
+.logo-box--lg {
+  flex: 0 1 calc(33.33% - 8px);
+  height: 96px;
+}
+
+.logo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.logo-placeholder {
+  font-family: 'Archivo Black', Arial Black, sans-serif;
+  font-size: 13px;
+  color: #8C8C8C;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .logo-box,
+  .logo-box--lg { flex: 0 1 calc(50% - 6px); }
+}
+
+@media (max-width: 640px) {
+  .logo-box,
+  .logo-box--lg { flex: 0 1 calc(50% - 6px); }
+}

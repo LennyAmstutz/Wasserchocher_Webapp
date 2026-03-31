@@ -1,1 +1,95 @@
-/* You can add global styles to this file, and also import other style files */
+/* ══════════════════════════════════════════════════════════════
+   WASSERCHOCHER — Global Styles
+   All component-specific styles live in their own .css files.
+   This file handles: reset, tokens, fonts, body, scrollbar.
+══════════════════════════════════════════════════════════════ */
+
+/* ── Google Fonts ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500;600&display=swap');
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+img  { display: block; max-width: 100%; }
+a    { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+ul, ol { list-style: none; }
+
+/* ── Design Tokens ──────────────────────────────────────────── */
+:root {
+  --black:     #1A1A1A;
+  --off-black: #242424;
+  --dark:      #2E2E2E;
+  --mid:       #5A5A5A;
+  --muted:     #8C8C8C;
+  --border:    #D8D8D6;
+  --light:     #EBEBEA;
+  --off-white: #F2F2F0;
+  --white:     #FAFAFA;
+
+  --display: 'Archivo Black', Arial Black, sans-serif;
+  --body:    'Archivo', system-ui, sans-serif;
+
+  --header-h:  68px;
+  --max:       1200px;
+  --pad:       clamp(20px, 5vw, 72px);
+  --section-v: clamp(72px, 10vw, 128px);
+  --r:         10px;
+  --r-lg:      18px;
+  --r-xl:      26px;
+  --dur:       0.22s;
+  --ease:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+body {
+  background: var(--off-white);
+  color: var(--black);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+main {
+  /* Offset for fixed header */
+  display: block;
+}
+
+/* ── Scrollbar (Webkit) ─────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--off-white); }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── Focus visible ──────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── View transitions (Angular) ─────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+:root {
+  view-transition-name: page;
+}
+
+::view-transition-old(page) {
+  animation: 200ms ease-out both fade-in reverse;
+}
+::view-transition-new(page) {
+  animation: 280ms ease-out both fade-in;
+}

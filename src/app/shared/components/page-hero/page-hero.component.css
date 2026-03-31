@@ -1,0 +1,62 @@
+.page-head {
+  padding-top: calc(68px + clamp(48px, 8vw, 96px));
+  padding-bottom: clamp(48px, 6vw, 80px);
+  background: #F2F2F0;
+}
+
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 72px);
+}
+
+.page-head-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: end;
+}
+
+.page-head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tag-pill {
+  display: inline-block;
+  background: #1A1A1A;
+  color: #F2F2F0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.page-h1 {
+  font-family: 'Archivo Black', Arial Black, sans-serif;
+  font-size: clamp(40px, 7vw, 80px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #1A1A1A;
+}
+
+.page-intro-p {
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 300;
+  color: #5A5A5A;
+  line-height: 1.7;
+  max-width: 480px;
+  align-self: end;
+}
+
+@media (max-width: 960px) {
+  .page-head-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .page-intro-p { max-width: 100%; }
+}

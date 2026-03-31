@@ -1,0 +1,50 @@
+<app-page-hero
+  tag="Erinnerungen"
+  title="Rückblick"
+  intro="Momente, die bleiben. Ein Blick zurück auf die Abende, die uns gemacht haben."
+/>
+
+<section class="rueck-sect">
+  <div class="container">
+
+    @if (loading()) {
+      <div class="state-msg">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+    }
+
+    @if (error()) {
+      <p class="state-msg state-msg--error">{{ error() }}</p>
+    }
+
+    @if (!loading() && !error()) {
+      @for (group of recapsByYear(); track group.year) {
+        <div class="rueck-year-block">
+          <div class="rueck-year-label">{{ group.year }}</div>
+          <div class="rueck-year-grid">
+            @for (recap of group.items; track recap.id; let i = $index) {
+              <a
+                class="rg-item"
+                [class.rg-item--wide]="i === 0"
+                [routerLink]="['/rueckblick', recap.event_id]"
+              >
+                @if (recap.cover_image_path) {
+                  <img [src]="recap.cover_image_path" [alt]="recap.title" />
+                } @else {
+                  <div class="rg-placeholder"></div>
+                }
+                <div class="rg-caption">
+                  <span class="rg-date">{{ recap.published_at | date:'MMM yyyy':'':'de' }}</span>
+                  <span class="rg-name">{{ recap.title }}</span>
+                </div>
+              </a>
+            }
+          </div>
+        </div>
+      }
+    }
+
+  </div>
+</section>

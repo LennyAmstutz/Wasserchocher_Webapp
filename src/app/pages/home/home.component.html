@@ -1,0 +1,187 @@
+<!-- ═══════════════════════════════════════════
+  HERO
+═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <p class="hero-overline">Kulturverein · Luzern · seit 2018</p>
+      <h1 class="hero-h1">
+        Wir machen<br />Abende<br />
+        <span class="hero-h1-accent">unverfügbar.</span>
+      </h1>
+      <div class="hero-sub-row">
+        <p class="hero-claim">
+          Konzerte, Partys, Kunst und echte Begegnungen —<br />
+          mitten in Luzern, seit 2018.
+        </p>
+        <div class="hero-actions">
+          <a routerLink="/events" class="btn btn-dark">Events ansehen</a>
+          <a routerLink="/sponsoren" class="btn btn-outline">Sponsoren</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <div class="hero-placeholder"></div>
+        <div class="hero-stat">
+          <span class="stat-n">47</span>
+          <span class="stat-l">Events</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+  INTRO
+═══════════════════════════════════════════ -->
+<section class="home-intro">
+  <div class="container">
+    <div class="home-intro-layout">
+      <div class="home-intro-tag">
+        <span class="tag-pill">Über uns</span>
+      </div>
+      <div class="home-intro-text">
+        <p class="text-large">
+          Wasserchocher ist ein gemeinnütziger Verein aus Luzern. Wir organisieren Konzerte,
+          Partys, Ausstellungen und Community-Abende — für alle, die Kultur nicht aus dem
+          Bildschirm konsumieren wollen.
+        </p>
+        <p class="text-body">
+          Hinter allem steht ein Team aus Freiwilligen, die an Begegnungen glauben, die nachwirken.
+          Keine Corporate-Logik. Keine Ticketgebühr von 15 Franken. Einfach gute Abende.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+  FEATURED EVENT
+═══════════════════════════════════════════ -->
+@if (featuredEvent()) {
+  <section class="home-featured">
+    <div class="container">
+      <div class="section-row">
+        <span class="tag-pill">Nächstes Highlight</span>
+        <span class="section-count">01</span>
+      </div>
+      <app-featured-event [event]="featuredEvent()!" />
+    </div>
+  </section>
+}
+
+
+<!-- ═══════════════════════════════════════════
+  EVENT TEASER GRID
+═══════════════════════════════════════════ -->
+@if (recentEvents().length > 0) {
+  <section class="home-teaser">
+    <div class="container">
+      <div class="section-row">
+        <span class="tag-pill">Weitere Events</span>
+        <a routerLink="/events" class="btn-link">Alle ansehen →</a>
+      </div>
+      <div class="teaser-grid">
+        @for (event of recentEvents(); track event.id) {
+          <app-event-card [event]="event" />
+        }
+      </div>
+    </div>
+  </section>
+}
+
+
+<!-- ═══════════════════════════════════════════
+  RÜCKBLICK PREVIEW
+═══════════════════════════════════════════ -->
+@if (recentRecaps().length > 0) {
+  <section class="home-rueck">
+    <div class="container">
+      <div class="section-row">
+        <span class="tag-pill">Rückblick</span>
+        <a routerLink="/rueckblick" class="btn-link">Alle ansehen →</a>
+      </div>
+      <div class="rueck-prev-grid">
+        @if (recentRecaps()[0]; as main) {
+          <a class="rueck-prev-main" [routerLink]="['/rueckblick', main.event_id]">
+            @if (main.cover_image_path) {
+              <img [src]="main.cover_image_path" [alt]="main.title" />
+            } @else {
+              <div class="rueck-placeholder rueck-placeholder--main"></div>
+            }
+            <div class="rueck-overlay">
+              <span class="rueck-overlay-date">{{ main.published_at | date:'MMM yyyy' }}</span>
+              <span class="rueck-overlay-name">{{ main.title }}</span>
+            </div>
+          </a>
+        }
+        <div class="rueck-prev-side">
+          @for (recap of recentRecaps().slice(1); track recap.id) {
+            <a class="rueck-prev-sm" [routerLink]="['/rueckblick', recap.event_id]">
+              @if (recap.cover_image_path) {
+                <img [src]="recap.cover_image_path" [alt]="recap.title" />
+              } @else {
+                <div class="rueck-placeholder"></div>
+              }
+              <div class="rueck-overlay">
+                <span class="rueck-overlay-date">{{ recap.published_at | date:'MMM yyyy' }}</span>
+                <span class="rueck-overlay-name">{{ recap.title }}</span>
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+}
+
+
+<!-- ═══════════════════════════════════════════
+  SPONSOREN PREVIEW
+═══════════════════════════════════════════ -->
+<section class="home-sponsors">
+  <div class="container">
+    <div class="section-row">
+      <span class="tag-pill">Partner</span>
+      <a routerLink="/sponsoren" class="btn-link">Alle →</a>
+    </div>
+    <div class="sponsor-tiers">
+
+      <!-- tierOrder ist ein Array aus dem TS: { key: SponsorTier, label: string }[]  -->
+      <!-- getSponsorsForTier() ist eine typsichere Hilfsmethode — kein Template-Casting nötig -->
+      @for (tier of tierOrder; track tier.key) {
+        @if (getSponsorsForTier(tier.key).length > 0) {
+          <div class="sponsor-tier-row">
+            <span class="tier-name" [class]="'tier-name--' + tier.key">
+              {{ tier.label }}
+            </span>
+            <div class="sponsor-logos-row">
+              @for (s of getSponsorsForTier(tier.key); track s.id) {
+                <div class="logo-box">
+                  @if (s.logo_path) {
+                    <img [src]="s.logo_path" [alt]="s.name" />
+                  } @else {
+                    {{ s.name }}
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      }
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+  KONTAKT CTA
+═══════════════════════════════════════════ -->
+<app-contact-cta />

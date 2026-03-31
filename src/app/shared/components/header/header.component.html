@@ -1,0 +1,35 @@
+<header
+  class="header"
+  [class.header--scrolled]="scrolled()"
+>
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a routerLink="/" class="logo" (click)="closeNav()">Wasserchocher</a>
+
+    <!-- Burger (mobile) -->
+    <button
+      class="burger"
+      [class.burger--open]="navOpen()"
+      [attr.aria-label]="navOpen() ? 'Menü schliessen' : 'Menü öffnen'"
+      (click)="toggleNav()"
+    >
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Nav -->
+    <nav class="nav" [class.nav--open]="navOpen()">
+      @for (link of navLinks; track link.path) {
+        <a
+          class="nav-link"
+          [routerLink]="link.path"
+          routerLinkActive="nav-link--active"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+          (click)="closeNav()"
+        >{{ link.label }}</a>
+      }
+    </nav>
+
+  </div>
+</header>
