@@ -5,24 +5,18 @@
     <span class="loading-dot"></span>
   </div>
 }
-
 @if (error()) {
   <div class="state-center">
     <p class="state-error">{{ error() }}</p>
     <a routerLink="/rueckblick" class="btn btn-outline">← Zurück zum Rückblick</a>
   </div>
 }
-
 @if (!loading() && recap(); as r) {
-
-  <!-- Back -->
   <div class="detail-back">
     <div class="container">
       <a routerLink="/rueckblick" class="back-btn">← Rückblick</a>
     </div>
   </div>
-
-  <!-- Cover Image -->
   @if (r.cover_image_path) {
     <section class="rueck-detail-hero">
       <div class="container">
@@ -30,12 +24,9 @@
       </div>
     </section>
   }
-
-  <!-- Content -->
   <section class="rueck-detail-content">
     <div class="container">
       <div class="rueck-detail-layout">
-
         <div class="rueck-detail-main">
           <div class="rueck-detail-meta">
             <span class="meta-date">{{ r.published_at | date:'MMMM yyyy':'':'de' }}</span>
@@ -44,20 +35,24 @@
           <div class="rueck-detail-text" [innerHTML]="r.content"></div>
           <a routerLink="/rueckblick" class="btn btn-outline">← Alle Rückblicke</a>
         </div>
-
         <aside class="rueck-detail-aside">
-          <div class="aside-card">
-            <p class="aside-k">Veröffentlicht</p>
-            <p class="aside-v">{{ r.published_at | date:'d. MMMM yyyy':'':'de' }}</p>
-          </div>
-          <div class="aside-card">
-            <p class="aside-k">Veranstalter</p>
-            <p class="aside-v">Verein Wasserchocher</p>
-          </div>
+<!--          <div class="aside-card">-->
+<!--            <p class="aside-k">Veranstalter</p>-->
+<!--            <p class="aside-v">Verein Wasserchocher</p>-->
+<!--          </div>-->
         </aside>
-
       </div>
     </div>
   </section>
-
+  @if (r.images && r.images.length > 0) {
+    <section class="rueck-gallery">
+      <div class="container">
+        <div class="gallery-grid">
+          @for (img of r.images; track img.image_path) {
+            <img [src]="img.image_path" [alt]="img.alt_text" class="gallery-img" />
+          }
+        </div>
+      </div>
+    </section>
+  }
 }

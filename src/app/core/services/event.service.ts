@@ -7,7 +7,7 @@ import { ApiResponse } from '../../models/api-response.model';
 @Injectable({ providedIn: 'root' })
 export class EventService {
   private readonly http = inject(HttpClient);
-  private readonly base = '/api/events';
+  private readonly base = '/Wasserchocher/api/events';
 
   getEvents(): Observable<Event[]> {
     return this.http

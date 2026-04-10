@@ -7,7 +7,7 @@ import { ApiResponse } from '../../models/api-response.model';
 @Injectable({ providedIn: 'root' })
 export class SponsorService {
   private readonly http = inject(HttpClient);
-  private readonly base = '/api/sponsors';
+  private readonly base = '/Wasserchocher/api/sponsors';
 
   getSponsors(): Observable<Sponsor[]> {
     return this.http

@@ -102,25 +102,6 @@
     </div>
   </section>
 
-  <!-- Event Images Gallery -->
-  @if (ev.images && ev.images.length > 0) {
-    <section class="detail-gallery">
-      <div class="container">
-        <h2 class="gallery-title">Impressionen</h2>
-        <div class="gallery-grid">
-          @for (img of ev.images; track img.id) {
-            <div class="gallery-item">
-              <img [src]="img.image_path" [alt]="img.alt_text || ev.title" />
-              @if (img.caption) {
-                <p class="gallery-caption">{{ img.caption }}</p>
-              }
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-  }
-
   <!-- Sponsors -->
   @if (hasSponsorsByTier) {
     <section class="detail-sponsors">

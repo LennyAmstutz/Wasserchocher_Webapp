@@ -6,7 +6,7 @@ import { ContactRequest, ContactResponse } from '../../models/contact-request.mo
 @Injectable({ providedIn: 'root' })
 export class ContactService {
   private readonly http = inject(HttpClient);
-  private readonly base = '/api/contact';
+  private readonly base = '/Wasserchocher/api/contact';
 
   createContactRequest(payload: ContactRequest): Observable<ContactResponse> {
     return this.http.post<ContactResponse>(`${this.base}/create.php`, payload);

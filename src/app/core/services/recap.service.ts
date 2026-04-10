@@ -7,7 +7,7 @@ import { ApiResponse } from '../../models/api-response.model';
 @Injectable({ providedIn: 'root' })
 export class RecapService {
   private readonly http = inject(HttpClient);
-  private readonly base = '/api/recaps';
+  private readonly base = '/Wasserchocher/api/recaps';
 
   getRecaps(): Observable<Recap[]> {
     return this.http
@@ -17,7 +17,7 @@ export class RecapService {
 
   getRecapById(id: string | number): Observable<Recap> {
     return this.http
-      .get<ApiResponse<Recap>>(`${this.base}/detail.php?id=${id}`)
+      .get<ApiResponse<Recap>>(`${this.base}/detail.php?event_id=${id}`)
       .pipe(map(r => r.data));
   }
 

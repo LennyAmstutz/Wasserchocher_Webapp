@@ -7,15 +7,12 @@
     } @else {
       <div class="featured-placeholder"></div>
     }
-    <div class="featured-img-label">
-      <span class="event-tag">{{ event().short_description }}</span>
-    </div>
   </div>
 
   <!-- Info -->
   <div class="featured-info">
     <div class="featured-meta">
-      <span class="meta-date">{{ event().event_date | date:'EE, d. MMM yyyy':'':'de' }}</span>
+      <span class="meta-date">{{ event().event_date | date:'dd.MM.yyyy' }}</span>
       <span class="meta-sep">—</span>
       <span class="meta-place">{{ event().location }}</span>
     </div>
