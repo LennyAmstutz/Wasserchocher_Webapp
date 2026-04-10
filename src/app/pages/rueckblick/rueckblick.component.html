@@ -3,10 +3,8 @@
   title="Rückblick"
   intro="Momente, die bleiben. Ein Blick zurück auf die Abende, die uns gemacht haben."
 />
-
 <section class="rueck-sect">
   <div class="container">
-
     @if (loading()) {
       <div class="state-msg">
         <span class="loading-dot"></span>
@@ -14,37 +12,26 @@
         <span class="loading-dot"></span>
       </div>
     }
-
     @if (error()) {
       <p class="state-msg state-msg--error">{{ error() }}</p>
     }
-
     @if (!loading() && !error()) {
-      @for (group of recapsByYear(); track group.year) {
-        <div class="rueck-year-block">
-          <div class="rueck-year-label">{{ group.year }}</div>
-          <div class="rueck-year-grid">
-            @for (recap of group.items; track recap.id; let i = $index) {
-              <a
-                class="rg-item"
-                [class.rg-item--wide]="i === 0"
-                [routerLink]="['/rueckblick', recap.event_id]"
-              >
-                @if (recap.cover_image_path) {
-                  <img [src]="recap.cover_image_path" [alt]="recap.title" />
-                } @else {
-                  <div class="rg-placeholder"></div>
-                }
-                <div class="rg-caption">
-                  <span class="rg-date">{{ recap.published_at | date:'MM.yyyy' }}</span>
-                  <span class="rg-name">{{ recap.title }}</span>
-                </div>
-              </a>
-            }
+      <div class="masonry-grid">
+        @for (img of allImages(); track img.image_path; let i = $index) {
+          <div class="masonry-item" (click)="openLightbox(i)">
+            <img [src]="img.image_path" [alt]="img.alt_text" loading="lazy" />
+            
           </div>
-        </div>
-      }
+        }
+      </div>
     }
-
   </div>
 </section>
+@if (lightboxIndex() !== null && allImages().length > 0) {
+  <div class="lightbox-overlay" (click)="closeLightbox()">
+    <button class="lightbox-close" (click)="closeLightbox()">✕</button>
+    <button class="lightbox-prev" (click)="prevImage($event)">‹</button>
+    <img class="lightbox-img" [src]="allImages()[lightboxIndex()!].image_path" [alt]="allImages()[lightboxIndex()!].alt_text" (click)="$event.stopPropagation()" />
+    <button class="lightbox-next" (click)="nextImage($event)">›</button>
+  </div>
+}

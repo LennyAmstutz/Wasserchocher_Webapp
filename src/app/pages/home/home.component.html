@@ -8,7 +8,7 @@
       <p class="hero-overline">Kulturverein · Stans · seit 2023</p>
       <h1 class="hero-h1">
         Wir machen<br />Abende<br />
-        <span class="hero-h1-accent">unverfügbar.</span>
+        <span class="hero-h1-accent">unvergessbar.</span>
       </h1>
       <div class="hero-sub-row">
         <p class="hero-claim">
@@ -24,7 +24,7 @@
 
     <div class="hero-right">
       <div class="hero-img-wrap">
-        <div class="hero-placeholder"></div>
+        <img src="/Wasserchocher/images/events/luga-daydance.jpg" alt="Wasserchocher" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />
         <div class="hero-stat">
           <span class="stat-n">5</span>
           <span class="stat-l">Events</span>
@@ -90,52 +90,6 @@
     </div>
   </section>
 }
-
-
-<!-- ═══════════════════════════════════════════
-  RÜCKBLICK PREVIEW
-═══════════════════════════════════════════ -->
-@if (recentRecaps().length > 0) {
-  <section class="home-rueck">
-    <div class="container">
-      <div class="section-row">
-        <span class="tag-pill">Rückblick</span>
-        <a routerLink="/rueckblick" class="btn-link">Alle ansehen →</a>
-      </div>
-      <div class="rueck-prev-grid">
-        @if (recentRecaps()[0]; as main) {
-          <a class="rueck-prev-main" [routerLink]="['/rueckblick', main.event_id]">
-            @if (main.cover_image_path) {
-              <img [src]="main.cover_image_path" [alt]="main.title" />
-            } @else {
-              <div class="rueck-placeholder rueck-placeholder--main"></div>
-            }
-            <div class="rueck-overlay">
-              <span class="rueck-overlay-date">{{ main.published_at | date:'MMM yyyy' }}</span>
-              <span class="rueck-overlay-name">{{ main.title }}</span>
-            </div>
-          </a>
-        }
-        <div class="rueck-prev-side">
-          @for (recap of recentRecaps().slice(1); track recap.id) {
-            <a class="rueck-prev-sm" [routerLink]="['/rueckblick', recap.event_id]">
-              @if (recap.cover_image_path) {
-                <img [src]="recap.cover_image_path" [alt]="recap.title" />
-              } @else {
-                <div class="rueck-placeholder"></div>
-              }
-              <div class="rueck-overlay">
-                <span class="rueck-overlay-date">{{ recap.published_at | date:'MMM yyyy' }}</span>
-                <span class="rueck-overlay-name">{{ recap.title }}</span>
-              </div>
-            </a>
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-}
-
 
 <!-- ═══════════════════════════════════════════
   SPONSOREN PREVIEW

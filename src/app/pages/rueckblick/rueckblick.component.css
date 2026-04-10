@@ -1,96 +1,91 @@
 .rueck-sect {
-  padding-block: clamp(64px, 10vw, 112px);
+  padding-block: clamp(48px, 8vw, 96px);
   background: #F2F2F0;
+  overflow-x: hidden;
 }
 
 .container {
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: clamp(20px, 5vw, 72px);
+  padding-inline: clamp(16px, 4vw, 64px);
+  box-sizing: border-box;
 }
 
-/* ── Year Block ──────────────────────────────── */
-.rueck-year-block { margin-bottom: 72px; }
-
-.rueck-year-label {
-  font-family: 'Archivo Black', Arial Black, sans-serif;
-  font-size: clamp(48px, 9vw, 104px);
-  letter-spacing: -0.045em;
-  color: #D8D8D6;
-  margin-bottom: 20px;
-  line-height: 1;
+/* ── Masonry Collage ──────────────────────────── */
+.masonry-grid {
+  column-count: 3;
+  column-gap: 8px;
+  width: 100%;
 }
 
-.rueck-year-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 220px;
-  gap: 12px;
-}
-
-/* ── Grid Items ──────────────────────────────── */
-.rg-item {
-  position: relative;
-  border-radius: 10px;
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  text-decoration: none;
   display: block;
+  width: 100%;
 }
 
-.rg-item--wide { grid-column: span 2; }
-
-.rg-item img {
+.masonry-item img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
-  transition: transform 0.4s ease;
-}
-.rg-item:hover img { transform: scale(1.04); }
-
-.rg-placeholder {
-  width: 100%;
-  height: 100%;
-  background: #EBEBEA;
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent, transparent 24px,
-    rgba(0,0,0,.03) 24px, rgba(0,0,0,.03) 25px
-  );
+  transition: transform 0.35s ease;
 }
 
-.rg-caption {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 14px;
-  background: linear-gradient(transparent, rgba(26,26,26,.65));
+.masonry-item:hover img { transform: scale(1.04); }
+
+/* ── Lightbox ─────────────────────────────────── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.94);
+  z-index: 9999;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.22s, transform 0.22s;
-}
-.rg-item:hover .rg-caption {
-  opacity: 1;
-  transform: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-.rg-date {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(242,242,240,.6);
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
-.rg-name {
-  font-family: 'Archivo Black', Arial Black, sans-serif;
-  font-size: 16px;
-  letter-spacing: -0.01em;
-  color: #F2F2F0;
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1;
+  opacity: 0.8;
 }
+.lightbox-close:hover { opacity: 1; }
+
+.lightbox-prev, .lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 52px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 12px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.lightbox-prev:hover, .lightbox-next:hover { opacity: 1; }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
 
 /* ── Loading / Error ─────────────────────────── */
 .state-msg {
@@ -99,16 +94,13 @@
   justify-content: center;
   gap: 8px;
   padding: 80px 0;
-  font-size: 15px;
-  font-weight: 300;
   color: #8C8C8C;
 }
 .state-msg--error { color: #A06040; }
 
 .loading-dot {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: #D8D8D6;
   animation: pulse 1.2s ease-in-out infinite;
@@ -122,18 +114,5 @@
 }
 
 /* ── Responsive ──────────────────────────────── */
-@media (max-width: 960px) {
-  .rueck-year-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
-  }
-  .rg-item--wide { grid-column: span 2; }
-}
-
-@media (max-width: 640px) {
-  .rueck-year-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 190px;
-  }
-  .rg-item--wide { grid-column: span 1; }
-}
+@media (max-width: 768px)  { .masonry-grid { column-count: 2; } }
+@media (max-width: 480px)  { .masonry-grid { column-count: 1; } }

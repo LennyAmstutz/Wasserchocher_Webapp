@@ -35,24 +35,38 @@
           <div class="rueck-detail-text" [innerHTML]="r.content"></div>
           <a routerLink="/rueckblick" class="btn btn-outline">← Alle Rückblicke</a>
         </div>
-        <aside class="rueck-detail-aside">
-<!--          <div class="aside-card">-->
-<!--            <p class="aside-k">Veranstalter</p>-->
-<!--            <p class="aside-v">Verein Wasserchocher</p>-->
-<!--          </div>-->
-        </aside>
+        <aside class="rueck-detail-aside"></aside>
       </div>
     </div>
   </section>
+
   @if (r.images && r.images.length > 0) {
     <section class="rueck-gallery">
       <div class="container">
-        <div class="gallery-grid">
-          @for (img of r.images; track img.image_path) {
-            <img [src]="img.image_path" [alt]="img.alt_text" class="gallery-img" />
+        <h2 class="gallery-title">Eindrücke</h2>
+        <div class="masonry-grid">
+          @for (img of r.images; track img.image_path; let i = $index) {
+            <div class="masonry-item" (click)="openLightbox(i)">
+              <img [src]="img.image_path" [alt]="img.alt_text" />
+            </div>
           }
         </div>
       </div>
     </section>
+  }
+
+  <!-- Lightbox -->
+  @if (lightboxIndex() !== null) {
+    <div class="lightbox-overlay" (click)="closeLightbox()">
+      <button class="lightbox-close" (click)="closeLightbox()">✕</button>
+      <button class="lightbox-prev" (click)="prevImage($event)">‹</button>
+      <img
+        class="lightbox-img"
+        [src]="r.images![lightboxIndex()!].image_path"
+        [alt]="r.images![lightboxIndex()!].alt_text"
+        (click)="$event.stopPropagation()"
+      />
+      <button class="lightbox-next" (click)="nextImage($event, r.images!.length)">›</button>
+    </div>
   }
 }
