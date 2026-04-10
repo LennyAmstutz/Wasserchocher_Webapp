@@ -28,7 +28,7 @@ try {
     $newId = (int) $pdo->lastInsertId();
 
     // ── E-Mail senden ──────────────────────────────────────
-    $to      = 'lennyamstutz@gmail.com'; // <-- HIER DEINE E-MAIL EINTRAGEN
+    $to      = 'admin@wasserchocher.ch'; // <-- HIER DEINE E-MAIL EINTRAGEN
     $mailSubject = '[Wasserchocher] ' . $subject;
     $mailBody    = "Neue Kontaktanfrage von der Wasserchocher Website\n\n";
     $mailBody   .= "Name:     $name\n";
